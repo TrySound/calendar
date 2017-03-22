@@ -4,8 +4,6 @@ import Component from 'inferno-component';
 import withCalendar from './withCalendar.js';
 import withHandlers from './withHandlers.js';
 
-const week = Array(7).fill(0).map((d, i) => i);
-
 const Day = withHandlers({
     selectDay: props => props.dispatch({
         type: 'SELECT_DAY',
@@ -14,11 +12,21 @@ const Day = withHandlers({
         day: props.day
     })
 })(props =>
-    <div style={{ width: 20, height: 20, border: '1px solid', color: props.current ? '#000' : '#999' }}
+    <div style={{ width: 32, height: 20, border: '1px solid', color: props.currentMonth ? '#000' : '#999' }}
         onClick={props.selectDay}>
         {props.day}
     </div>
 );
+
+const weekNames = {
+    0: 'Sun',
+    1: 'Mon',
+    2: 'Tue',
+    3: 'Wed',
+    4: 'Thu',
+    5: 'Fri',
+    6: 'Sat'
+};
 
 const Calendar = withHandlers({
     prevMonth: props => props.dispatch({
@@ -38,13 +46,15 @@ const Calendar = withHandlers({
                 {props.year} {props.month + 1}
             </div>
             <div style={{ display: 'flex', marginBottom: 2 }}>
-                {week.map(day =>
-                    <div style={{ width: 20, height: 20, border: '1px solid', color: '#999' }}>{day}</div>
+                {props.week.map(day =>
+                    <div style={{ width: 32, height: 20, border: '1px solid', color: '#999' }}>
+                        {weekNames[day]}
+                    </div>
                 )}
             </div>
-            <div style={{ display: 'flex', flexFlow: 'wrap', width: 154 }}>
+            <div style={{ display: 'flex', flexFlow: 'wrap', width: 238 }}>
                 {props.days.map(item =>
-                    <Day {...item} current={item.month === props.month} dispatch={props.dispatch} />
+                    <Day {...item} dispatch={props.dispatch} />
                 )}
             </div>
         </div>
@@ -55,7 +65,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            year: 2017,
+            year: 2417,
             month: 1
         };
         this.dispatch = this.dispatch.bind(this);
@@ -81,7 +91,16 @@ class App extends Component {
 
     render(props, state) {
         return (
-            <Calendar year={state.year} month={state.month} dispatch={this.dispatch} />
+            <div>
+                <Calendar
+                    year={state.year}
+                    month={state.month}
+                    dispatch={this.dispatch} />
+                <Calendar
+                    year={state.year}
+                    month={state.month}
+                    dispatch={this.dispatch} />
+            </div>
         );
     }
 }

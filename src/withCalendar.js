@@ -12,18 +12,22 @@ const withCalendar = () => withPropsOnChange(['year', 'month'], props => {
     const weekDay = getWeekDay(props.year, props.month, 1);
     const nextDaysCount = 42 - currDaysCount - weekDay;
     return {
+        week: [0, 1, 2, 3, 4, 5, 6],
         days: [
             ...Array(weekDay).fill(0).map((d, i) => ({
+                prevMonth: true,
                 year: prevYear,
                 month: prevMonth,
                 day: i + prevDaysCount - weekDay + 1
             })),
             ...Array(currDaysCount).fill(0).map((d, i) => ({
+                currentMonth: true,
                 year: props.year,
                 month: props.month,
                 day: i + 1
             })),
             ...Array(nextDaysCount).fill(0).map((d, i) => ({
+                nextMonth: true,
                 year: nextYear,
                 month: nextMonth,
                 day: i + 1
