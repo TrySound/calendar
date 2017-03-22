@@ -7,11 +7,20 @@ module.exports = {
         filename: 'example.js'
     },
     devtool: '#inline-source-map',
+    resolve: {
+        mainFields: [
+            'inferno:main',
+            'browser',
+            'module',
+            'main'
+        ],
+    },
     module: {
         strictExportPresence: true,
         rules: [
             {
                 test: /\.js$/,
+                exclude: /node_modules/,
                 loader: 'babel-loader'
             }
         ]
