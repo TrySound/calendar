@@ -8,6 +8,7 @@ module.exports = {
     },
     devtool: '#inline-source-map',
     module: {
+        strictExportPresence: true,
         rules: [
             {
                 test: /\.js$/,
