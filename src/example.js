@@ -38,29 +38,29 @@ const Calendar = compose(
             type: 'NEXT_MONTH'
         })
     }),
-    withCalendar()(props =>
-        <div>
-            <div style={{ display: 'flex' }}>
-                <div onClick={props.prevMonth}>Prev</div>
-                <div onClick={props.nextMonth}>Next</div>
-            </div>
-            <div>
-                {props.year} {props.month + 1}
-            </div>
-            <div style={{ display: 'flex', marginBottom: 2 }}>
-                {props.week.map(day =>
-                    <div style={{ width: 32, height: 20, border: '1px solid', color: '#999' }}>
-                        {weekNames[day]}
-                    </div>
-                )}
-            </div>
-            <div style={{ display: 'flex', flexFlow: 'wrap', width: 238 }}>
-                {props.days.map(item =>
-                    <Day {...item} dispatch={props.dispatch} />
-                )}
-            </div>
+    withCalendar()
+)(props =>
+    <div>
+        <div style={{ display: 'flex' }}>
+            <div onClick={props.prevMonth}>Prev</div>
+            <div onClick={props.nextMonth}>Next</div>
         </div>
-    )
+        <div>
+            {props.year} {props.month + 1}
+        </div>
+        <div style={{ display: 'flex', marginBottom: 2 }}>
+            {props.week.map(day =>
+                <div style={{ width: 32, height: 20, border: '1px solid', color: '#999' }}>
+                    {weekNames[day]}
+                </div>
+            )}
+        </div>
+        <div style={{ display: 'flex', flexFlow: 'wrap', width: 238 }}>
+            {props.days.map(item =>
+                <Day {...item} dispatch={props.dispatch} />
+            )}
+        </div>
+    </div>
 );
 
 class App extends Component {
