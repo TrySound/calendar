@@ -1,6 +1,7 @@
 import { render } from 'inferno';
 import createElement from 'inferno-create-element';
 import Component from 'inferno-component';
+import compose from './compose.js';
 import withCalendar from './withCalendar.js';
 import withHandlers from './withHandlers.js';
 
@@ -28,14 +29,15 @@ const weekNames = {
     6: 'Sat'
 };
 
-const Calendar = withHandlers({
-    prevMonth: props => props.dispatch({
-        type: 'PREV_MONTH'
+const Calendar = compose(
+    withHandlers({
+        prevMonth: props => props.dispatch({
+            type: 'PREV_MONTH'
+        }),
+        nextMonth: props => props.dispatch({
+            type: 'NEXT_MONTH'
+        })
     }),
-    nextMonth: props => props.dispatch({
-        type: 'NEXT_MONTH'
-    })
-})(
     withCalendar()(props =>
         <div>
             <div style={{ display: 'flex' }}>
@@ -91,16 +93,10 @@ class App extends Component {
 
     render(props, state) {
         return (
-            <div>
-                <Calendar
-                    year={state.year}
-                    month={state.month}
-                    dispatch={this.dispatch} />
-                <Calendar
-                    year={state.year}
-                    month={state.month}
-                    dispatch={this.dispatch} />
-            </div>
+            <Calendar
+                year={state.year}
+                month={state.month}
+                dispatch={this.dispatch} />
         );
     }
 }
