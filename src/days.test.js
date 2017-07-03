@@ -1,4 +1,6 @@
-import { getDaysOfMonth, getWeekDay, getWeeksSquare } from './utils.js';
+// @flow
+
+import { getDaysOfMonth, getDayOfWeek } from './days.js';
 
 test('y2k bug', () => {
     expect(getDaysOfMonth(1600, 1)).toEqual(29);
@@ -58,33 +60,11 @@ test('december has 31 days', () => {
 });
 
 test('week day', () => {
-    expect(getWeekDay(1902, 10, 21)).toEqual(5);
-    expect(getWeekDay(1999, 11, 31)).toEqual(5);
-    expect(getWeekDay(2000, 0, 1)).toEqual(6);
-    expect(getWeekDay(2000, 0, 2)).toEqual(0);
-    expect(getWeekDay(2000, 0, 3)).toEqual(1);
-    expect(getWeekDay(2000, 2, 24)).toEqual(5);
-    expect(getWeekDay(2016, 1, 29)).toEqual(1);
+    expect(getDayOfWeek(1902, 10, 21)).toEqual(5);
+    expect(getDayOfWeek(1999, 11, 31)).toEqual(5);
+    expect(getDayOfWeek(2000, 0, 1)).toEqual(6);
+    expect(getDayOfWeek(2000, 0, 2)).toEqual(0);
+    expect(getDayOfWeek(2000, 0, 3)).toEqual(1);
+    expect(getDayOfWeek(2000, 2, 24)).toEqual(5);
+    expect(getDayOfWeek(2016, 1, 29)).toEqual(1);
 });
-
-/*
-const getRange = (min, max) => Array(max + 1 - min).fill(undefined).map((d, index) => index + min);
-
-test('weeks square in month with day prop', () => {
-    expect(getWeeksSquare(2000, 0).map(d => d.day)).toEqual(
-        [...getRange(27, 31), ...getRange(1, 31), ...getRange(1, 6)]
-    );
-});
-
-test('weeks square in month with month prop', () => {
-    expect(getWeeksSquare(2000, 0).map(d => d.month)).toEqual(
-        [...Array(5).fill(12), ...Array(31).fill(0), ...Array(6).fill(1)]
-    );
-});
-
-test('weeks square in month with year prop', () => {
-    expect(getWeeksSquare(2000, 0).map(d => d.year)).toEqual(
-        [...Array(5).fill(1999), ...Array(31).fill(2000), ...Array(6).fill(2000)]
-    );
-});
-*/
